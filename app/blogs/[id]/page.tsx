@@ -5,7 +5,7 @@ async function getStaticSideProps(context: any) {
   const id = context.params?.id;
   const postResponse = await fetch("https://dummyjson.com/blogs?limit=150");
   const post = await postResponse.json();
-  const data = post.data.posts;
+  const data = post.posts;
 
   return {
     props: {
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
   const postsResponse = await fetch("https://dummyjson.com/blogs?limit=150");
 
   const posts = await postsResponse.json();
-  const data = posts.data.posts;
+  const data = posts.posts;
 
   return data.map((post: any) => ({
     id: String(post.id),
@@ -31,7 +31,7 @@ async function fetchPost(id: string) {
 
   console.log("Fetching blog post with id: ", id);
   const data = await postResponse.json();
-  return data.data;
+  return data;
 }
 
 type Params = {

@@ -8,11 +8,10 @@ async function getServerSideProps(context: any) {
   const id = context.params?.id;
   const response = await fetch("https://dummyjson.com/blogs");
   const data = await response.json();
-  const post = data.data;
 
   return {
     props: {
-      post,
+      data,
     },
   };
 }
@@ -28,7 +27,7 @@ async function fetchBlogs() {
 
   // await wait(4000);
   console.log("fetching Products");
-  return response.json().then((data) => data.data);
+  return response.json().then((data) => data);
 }
 
 export default async function Home() {
