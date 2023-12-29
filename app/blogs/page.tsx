@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 async function getServerSideProps(context: any) {
   const id = context.params?.id;
-  const response = await fetch("https://dummyjson.com/blogs");
+  const response = await fetch("https://dummyjson.com/posts");
   const data = await response.json();
 
   return {
@@ -17,7 +17,7 @@ async function getServerSideProps(context: any) {
 }
 
 async function fetchBlogs() {
-  const response = await fetch("https://dummyjson.com/blogs", {
+  const response = await fetch("https://dummyjson.com/posts?limit=10", {
     // cache: "force-cache", ///< SSG getStaticSideProps
     cache: "no-store", ///< SSR getServerSideProps
     // next: {
@@ -27,12 +27,13 @@ async function fetchBlogs() {
 
   // await wait(4000);
   console.log("fetching Products");
-  return response.json().then((data) => data);
+  const data = await response.json();
+  return data;
 }
 
 export default async function Home() {
   const blogs = await fetchBlogs();
-
+  console.log(blogs);
   return (
     <div className="p-10">
       <Blogs data={blogs} />

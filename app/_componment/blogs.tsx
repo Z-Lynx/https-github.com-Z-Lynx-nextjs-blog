@@ -35,10 +35,10 @@ export default function Blogs({ data }: { data: ApiResponse }) {
             const page: number = dataApi.skip / 10 + 1;
 
             const response = await fetch(
-              "https://dummyjson.com/blogs/?page=" + page
+              "https://dummyjson.com/posts?limit=10&skip=" + page * 10
             );
             const res = await response.json();
-            setDataApi(res.data);
+            setDataApi(res);
           }}
         >
           Load More
